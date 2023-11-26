@@ -11,11 +11,14 @@ generator client {
   provider = "prisma-client-js"
 }
 
-model Post {
-    id        Int      @id @default(autoincrement())
-    name      String
+model Comment {
+    id        String      @id @default(cuid())
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt
 
-    @@index([name])
+    content   String  @db.VarChar(255)
+    authorId  String
+    likes     Int     @default(0)
+
+    @@index([authorId])
 }

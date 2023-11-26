@@ -2,9 +2,10 @@ import Head from "next/head";
 import Link from "next/link";
 import { UserButton } from "@clerk/nextjs";
 import { api } from "~/utils/api";
+import { Comment } from "@prisma/client";
 
 export default function Home() {
-  const hello = api.post.hello.useQuery({ text: "from tRPC" });
+  const { data } = api.comments.getAll.useQuery();
 
   return (
     <>
@@ -15,6 +16,13 @@ export default function Home() {
       </Head>
       <main className="flex min-h-screen flex-col items-center justify-center bg-gradient-to-b from-[#2e026d] to-[#15162c]">
         <UserButton afterSignOutUrl='/' />
+        <>
+          {data?.map((comment: Comment) => (
+            <div key={comment.id} className="text-white">
+              {comment.content}
+            </div>
+          ))}
+        </>
       </main>
     </>
   );
