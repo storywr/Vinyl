@@ -11,6 +11,7 @@ import {
 } from '@tanstack/react-query'
 import { useState } from "react";
 import { Theme } from "@radix-ui/themes";
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 
 const MyApp: AppType = ({ Component, pageProps }: any) => {
   const [queryClient] = useState(() => new QueryClient())
@@ -18,8 +19,9 @@ const MyApp: AppType = ({ Component, pageProps }: any) => {
   return (
     <ClerkProvider>
       <QueryClientProvider client={queryClient}>
+        <ReactQueryDevtools initialIsOpen={false} />
         <Hydrate state={pageProps.dehydratedState}>
-          <Theme>
+          <Theme appearance="dark">
             <Component {...pageProps} />
           </Theme>
         </Hydrate>
