@@ -20,4 +20,6 @@ const config = {
   typescript: { ignoreBuildErrors: true }
 };
 
+module.exports = config
+
 export default config;
