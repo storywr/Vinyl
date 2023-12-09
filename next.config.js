@@ -6,7 +6,7 @@ await import("./src/env.js");
 
 /** @type {import("next").NextConfig} */
 const config = {
-  reactStrictMode: true,
+  reactStrictMode: false,
 
   /**
    * If you are using `appDir` then you must comment the below `i18n` config out.
@@ -19,7 +19,5 @@ const config = {
   },
   typescript: { ignoreBuildErrors: true }
 };
-
-module.exports = config
 
 export default config;
