@@ -76,7 +76,7 @@ export default function Home({ access_token }: HomeProps) {
     },
     tablet: {
       breakpoint: { max: 1024, min: 464 },
-      items: 1,
+      items: 2,
       slidesToSlide: 1 // optional, default to 1.
     },
     mobile: {
@@ -94,14 +94,14 @@ export default function Home({ access_token }: HomeProps) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main className="flex min-h-screen items-center flex-col bg-slate-950">
-        <Box className='flex flex-row justify-between p-6 w-full items-end'>
+        <Box className='flex flex-row justify-between p-6 w-full items-end flex-wrap gap-8'>
           <div className='text-4xl flex flex-row gap-2'>Vinyl <FaRecordVinyl /></div>
-          <TextField.Root variant='soft' radius='full' color='gray' className='w-[480px]' size='3'>
+          <TextField.Root variant='soft' radius='full' color='gray' className='w-full md:w-[480px] flex-[0-0-100%] order-2' size='3'>
             <TextField.Slot><FaMagnifyingGlass size='16' /></TextField.Slot>
             <TextField.Input placeholder="Search album art..." onChange={handleChange} value={search} />
             {!!search && <TextField.Slot className='cursor-pointer' onClick={handleClear}><MdClear size='20' /></TextField.Slot>}
           </TextField.Root>
-          <Box>
+          <Box className='order-1 md:order-3'>
             <UserButton afterSignOutUrl='/' />
           </Box>
         </Box>
@@ -141,10 +141,10 @@ const AlbumCard = ({ album }: { album: any }) => {
   }
 
   return (
-    <Card className='flex flex-col items-center justify-center w-[480px] m-auto bg-slate-900'>
+    <Card className='flex flex-col items-center justify-center bg-slate-900 my-auto mx-4'>
       <Inset>
         <a href={album.external_urls.spotify} target='_blank'>
-          <img className='object-cover min-h-[480px]' src={album?.images[0].url} />
+          <img className='object-cover' src={album?.images[0].url} />
         </a>
       </Inset>
       <div className="flex flex-row justify-between w-full p-2 gap-4 items-start mt-4">
