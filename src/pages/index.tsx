@@ -142,7 +142,7 @@ const AlbumCard = ({ album }: { album: any }) => {
   }
 
   return (
-    <Card className='flex flex-col items-center justify-center bg-slate-900 my-auto mx-4'>
+    <Card className='flex flex-col items-center justify-center bg-slate-900 my-auto mx-8'>
       <Inset>
         <a href={album.external_urls.spotify} target='_blank'>
           <img className='object-cover' src={album?.images[0].url} />
