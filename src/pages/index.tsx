@@ -1,8 +1,6 @@
 import Head from "next/head";
-import Link from "next/link";
 import { UserButton, useUser } from "@clerk/nextjs";
 import { api } from "~/utils/api";
-import { Comment } from "@prisma/client";
 import { useQuery } from "@tanstack/react-query";
 import { Box, Card, Flex, Inset, Text, TextField } from "@radix-ui/themes";
 import { ChangeEvent, useEffect, useState } from "react";
@@ -14,6 +12,7 @@ import { MdClear } from "react-icons/md";
 import Rating from '@mui/material/Rating';
 import { FaRecordVinyl } from "react-icons/fa6";
 import StarIcon from '@mui/icons-material/Star';
+import Skeleton from '@mui/material/Skeleton';
 
 export const getServerSideProps = (async () => {
   const response = await fetch('https://accounts.spotify.com/api/token', {
@@ -119,7 +118,7 @@ export default function Home({ access_token }: HomeProps) {
 }
 
 const AlbumCard = ({ album }: { album: any }) => {
-  const { data } = api.ratings.get.useQuery({ id: album.id });
+  const { data, isLoading } = api.ratings.get.useQuery({ id: album.id });
   const [rating, setRating] = useState(0);
 
   useEffect(() => {
@@ -127,7 +126,7 @@ const AlbumCard = ({ album }: { album: any }) => {
     setRating(data?.value);
   }, [data?.value]);
 
-  const { mutate, isLoading: isPosting } = api.ratings.create.useMutation({
+  const { mutate } = api.ratings.create.useMutation({
     onSuccess: () => {
       console.log('success');
     },
@@ -136,7 +135,7 @@ const AlbumCard = ({ album }: { album: any }) => {
     },
   });
 
-  const handleSetRating = (_, newValue: number) => {
+  const handleSetRating = (_e: ChangeEvent, newValue: number) => {
     setRating(newValue);
     mutate({ albumId: album.id, value: newValue });
   }
@@ -154,7 +153,17 @@ const AlbumCard = ({ album }: { album: any }) => {
           <h2 className='text-[#EDEEF0] text-xl'>{album.artists[0].name}</h2>
         </div>
         <div>
-          <Rating emptyIcon={<StarIcon color='primary' style={{ opacity: 0.40 }} fontSize="inherit" />} size='large' value={rating} onChange={handleSetRating} />
+          {isLoading
+            ? <Skeleton sx={{ backgroundColor: '#2c387e' }} width={175} height={50} />
+            : <Rating
+                emptyIcon={<StarIcon color='primary' style={{ opacity: 0.40 }}
+                fontSize="inherit" />}
+                size='large'
+                value={rating}
+                // @ts-ignore newValue exists
+                onChange={handleSetRating}
+              />
+          }
         </div>
       </div>
     </Card>
