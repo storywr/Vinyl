@@ -13,6 +13,7 @@ import Rating from '@mui/material/Rating';
 import { FaRecordVinyl } from "react-icons/fa6";
 import StarIcon from '@mui/icons-material/Star';
 import Skeleton from '@mui/material/Skeleton';
+import SkeletonCarousel from "~/components/SkeletonCarousel";
 
 export const getServerSideProps = (async () => {
   const response = await fetch('https://accounts.spotify.com/api/token', {
@@ -45,14 +46,12 @@ interface HomeProps {
 }
 
 export default function Home({ access_token }: HomeProps) {
-  // const { data } = api.comments.getAll.useQuery();
   const [search, setSearch] = useState('');
   const debouncedSearch = useDebouncedValue(search, 500)
   const {
     data: albumData,
     isLoading: isLoadingAlbums,
     isError: isErrorAlbums,
-    refetch: refetchAlbums
   } = useQuery({
     queryKey: ['albums', debouncedSearch.trim()],
     queryFn: () => fetchAlbums(debouncedSearch, access_token),
@@ -106,11 +105,13 @@ export default function Home({ access_token }: HomeProps) {
           </Box>
         </Box>
         <div className='justify-center items-center w-full m-auto'>
-          <Carousel responsive={responsive}>
-            {albumData?.albums?.items?.map((album: any) => (
-              <AlbumCard key={album.id} album={album} />
-            )) ?? []}
-          </Carousel>
+          {(!isLoadingAlbums && search) ? <SkeletonCarousel /> :
+            <Carousel responsive={responsive}>
+              {albumData?.albums?.items?.map((album: any) => (
+                <AlbumCard key={album.id} album={album} />
+              )) ?? []}
+            </Carousel>
+          }
         </div>
       </main>
     </>
