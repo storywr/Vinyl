@@ -105,7 +105,7 @@ export default function Home({ access_token }: HomeProps) {
           </Box>
         </Box>
         <div className='justify-center items-center w-full m-auto'>
-          {(!isLoadingAlbums && search) ? <SkeletonCarousel /> :
+          {(isLoadingAlbums && search) ? <SkeletonCarousel /> :
             <Carousel responsive={responsive}>
               {albumData?.albums?.items?.map((album: any) => (
                 <AlbumCard key={album.id} album={album} />
