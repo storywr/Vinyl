@@ -14,6 +14,8 @@ import { FaRecordVinyl } from "react-icons/fa6";
 import StarIcon from '@mui/icons-material/Star';
 import Skeleton from '@mui/material/Skeleton';
 import SkeletonCarousel from "~/components/SkeletonCarousel";
+import { GiHamburgerMenu } from "react-icons/gi";
+import * as DropdownMenu from '@radix-ui/react-dropdown-menu';
 
 export const getServerSideProps = (async () => {
   const response = await fetch('https://accounts.spotify.com/api/token', {
@@ -100,7 +102,24 @@ export default function Home({ access_token }: HomeProps) {
             <TextField.Input placeholder="Search album art..." onChange={handleChange} value={search} />
             {!!search && <TextField.Slot className='cursor-pointer' onClick={handleClear}><MdClear size='20' /></TextField.Slot>}
           </TextField.Root>
-          <Box className='order-1 md:order-3'>
+          <Box className='order-1 flex flex-row items-center md:order-3 gap-4'>
+            <DropdownMenu.Root>
+              <DropdownMenu.Trigger asChild>
+                <button className="IconButton" aria-label="Customise options">
+                  <Box className='cursor-pointer hover:bg-slate-800 p-2 rounded-md'><GiHamburgerMenu size='24' /></Box>
+                </button>
+              </DropdownMenu.Trigger>
+              <DropdownMenu.Portal>
+                <DropdownMenu.Content className="cursor-pointer mr-4 bg-slate-100 rounded-lg text-slate-950" sideOffset={5}>
+                  <DropdownMenu.Item className='hover:bg-slate-300 p-2 rounded-t-lg'>
+                    <div className='text-lg'>Your Top Rated</div>
+                  </DropdownMenu.Item>
+                  <DropdownMenu.Item className="hover:bg-slate-300 p-2 rounded-b-lg">
+                    <div className='text-lg'>Most Popular</div>
+                  </DropdownMenu.Item>
+                </DropdownMenu.Content>
+              </DropdownMenu.Portal>
+            </DropdownMenu.Root>
             <UserButton afterSignOutUrl='/' />
           </Box>
         </Box>
@@ -142,8 +161,8 @@ const AlbumCard = ({ album }: { album: any }) => {
   }
 
   return (
-    <Card className='flex flex-col items-center justify-center bg-slate-900 my-auto mx-8'>
-      <Inset>
+    <Card className='flex flex-col items-center justify-center bg-slate-900 my-auto mx-8 hover:mx-6 hover:shadow-slate-800 hover:shadow-2xl'>
+      <Inset className='rounded-b-none'>
         <a href={album.external_urls.spotify} target='_blank'>
           <img className='object-cover' src={album?.images[0].url} />
         </a>

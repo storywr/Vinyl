@@ -13,9 +13,25 @@ export const ratingsRouter = createTRPCRouter({
 
       return rating;
     }),
-  getAll: publicProcedure.query(async ({ ctx }) => {
+  getRatingsByUserId: publicProcedure
+    .input(
+      z.object({
+        userId: z.string(),
+      })
+    )
+    .query(async ({ ctx, input }) => {
+      const ratings = await ctx.prisma.rating
+        .findMany({
+          where: {
+            authorId: input.userId,
+          },
+          take: 20,
+          orderBy: [{ value: "desc" }],
+        })
+      return ratings;
+    }),
+  getTopRated: publicProcedure.query(async ({ ctx }) => {
     const ratings = await ctx.prisma.rating.findMany({
-      take: 100,
       orderBy: [{ createdAt: "desc" }],
     });
 
