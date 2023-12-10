@@ -1,6 +1,6 @@
 import Head from "next/head";
 import Link from "next/link";
-import { UserButton } from "@clerk/nextjs";
+import { UserButton, useUser } from "@clerk/nextjs";
 import { api } from "~/utils/api";
 import { Comment } from "@prisma/client";
 import { useQuery } from "@tanstack/react-query";
@@ -119,7 +119,28 @@ export default function Home({ access_token }: HomeProps) {
 }
 
 const AlbumCard = ({ album }: { album: any }) => {
+  const { data } = api.ratings.get.useQuery({ id: album.id });
   const [rating, setRating] = useState(0);
+
+  useEffect(() => {
+    if (!data?.value) return
+    setRating(data?.value);
+  }, [data?.value]);
+
+  const { mutate, isLoading: isPosting } = api.ratings.create.useMutation({
+    onSuccess: () => {
+      console.log('success');
+    },
+    onError: (e) => {
+      console.error(e);
+    },
+  });
+
+  const handleSetRating = (_, newValue: number) => {
+    setRating(newValue);
+    mutate({ albumId: album.id, value: newValue });
+  }
+
   return (
     <Card className='flex flex-col items-center justify-center w-[480px] m-auto bg-slate-900'>
       <Inset>
@@ -133,9 +154,7 @@ const AlbumCard = ({ album }: { album: any }) => {
           <h2 className='text-[#EDEEF0] text-xl'>{album.artists[0].name}</h2>
         </div>
         <div>
-          <Rating emptyIcon={<StarIcon color='primary' style={{ opacity: 0.40 }} fontSize="inherit" />} size='large' value={rating} onChange={(event, newValue: number) => {
-            setRating(newValue);
-          }} />
+          <Rating emptyIcon={<StarIcon color='primary' style={{ opacity: 0.40 }} fontSize="inherit" />} size='large' value={rating} onChange={handleSetRating} />
         </div>
       </div>
     </Card>

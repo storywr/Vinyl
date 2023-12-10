@@ -22,3 +22,15 @@ model Comment {
 
     @@index([authorId])
 }
+
+model Rating {
+    id        String      @id @default(cuid())
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+
+    value     Int
+    authorId  String
+    albumId   String
+
+    @@index([authorId])
+}
