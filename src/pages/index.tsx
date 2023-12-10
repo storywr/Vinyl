@@ -161,16 +161,16 @@ const AlbumCard = ({ album }: { album: any }) => {
   }
 
   return (
-    <Card className='flex flex-col items-center justify-center bg-slate-900 my-auto mx-8 hover:mx-6 hover:shadow-slate-800 hover:shadow-2xl'>
+    <Card className='flex flex-col items-center justify-center bg-slate-900 my-auto mx-8 hover:mx-6'>
       <Inset className='rounded-b-none'>
         <a href={album.external_urls.spotify} target='_blank'>
           <img className='object-cover' src={album?.images[0].url} />
         </a>
       </Inset>
       <div className="flex flex-row justify-between w-full p-2 gap-4 items-start mt-4">
-        <div className='flex flex-col items-start gap-2'>
-          <h1 className='text-[#EDEEF0] text-2xl'>{album.name}</h1>
-          <h2 className='text-[#EDEEF0] text-xl'>{album.artists[0].name}</h2>
+        <div className='flex flex-col items-start gap-1'>
+          <h1 className='text-[#EDEEF0] text-md md:text-lg font-extrabold'>{album.name}</h1>
+          <h2 className='text-[#EDEEF0] text-md md:text-lg font-extralight'>{album.artists[0].name}</h2>
         </div>
         <div>
           {isLoading
