@@ -16,7 +16,7 @@ const fetchAlbum = async (albumId: string, access_token: string) => {
   return response.json();
 };
 
-export const AlbumCard = ({ access_token, albumId, id }: { access_token: string, albumId: string, id: string }) => {
+export const FavoriteCard = ({ access_token, albumId, id }: { access_token: string, albumId: string, id: string }) => {
   const { data, isLoading } = api.ratings.get.useQuery({ id: albumId });
   const [rating, setRating] = useState(0);
   const {

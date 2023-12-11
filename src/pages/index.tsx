@@ -13,6 +13,7 @@ import Skeleton from '@mui/material/Skeleton';
 import SkeletonCarousel from "~/components/SkeletonCarousel";
 import { Nav } from "~/components/Nav";
 import { getAccessToken } from "~/utils/getAccessToken";
+import { Rating as RatingType } from "@prisma/client";
 
 export const getServerSideProps = (async () => {
   const { access_token } = await getAccessToken();
@@ -60,17 +61,17 @@ export default function Home({ access_token }: HomeProps) {
     desktop: {
       breakpoint: { max: 3000, min: 1024 },
       items: 3,
-      slidesToSlide: 1 // optional, default to 1.
+      slidesToSlide: 1
     },
     tablet: {
       breakpoint: { max: 1024, min: 464 },
       items: 2,
-      slidesToSlide: 1 // optional, default to 1.
+      slidesToSlide: 1
     },
     mobile: {
       breakpoint: { max: 464, min: 0 },
       items: 1,
-      slidesToSlide: 1 // optional, default to 1.
+      slidesToSlide: 1
     }
   };
 
@@ -99,7 +100,7 @@ export default function Home({ access_token }: HomeProps) {
 
 const AlbumCard = ({ album }: { album: any }) => {
   const { data, isLoading } = api.ratings.get.useQuery({ id: album.id });
-  const [rating, setRating] = useState<any>(null);
+  const [rating, setRating] = useState<RatingType | null>(null);
 
   useEffect(() => {
     if (!data?.value) return
@@ -125,7 +126,8 @@ const AlbumCard = ({ album }: { album: any }) => {
   });
 
   const handleSetRating = (_e: ChangeEvent, newValue: number) => {
-    setRating(prevState => ({ ...prevState, value: newValue }))
+    // @ts-ignore it is mad about null
+    setRating((prevState: RatingType) => ({ ...prevState, value: newValue }))
     if (!rating) {
       create({ albumId: album.id, value: newValue });
     } else {

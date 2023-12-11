@@ -1,6 +1,6 @@
 import { useUser } from "@clerk/nextjs";
 import { api } from "~/utils/api";
-import { AlbumCard } from "~/components/AlbumCard";
+import { FavoriteCard } from "~/components/FavoriteCard";
 import { Nav } from "~/components/Nav";
 import { getAccessToken } from "~/utils/getAccessToken";
 
@@ -25,7 +25,7 @@ const Favorites = ({ access_token }: FavoritesProps) => {
     <Nav>
       <div className="flex flex-row flex-wrap justify-center items-center w-full gap-12 md:gap-20 p-6">
         {data?.map((favorite: any) => (
-          <AlbumCard key={favorite.id} albumId={favorite.albumId} access_token={access_token} id={favorite.id}  />
+          <FavoriteCard key={favorite.id} albumId={favorite.albumId} access_token={access_token} id={favorite.id}  />
         ))}
       </div>
     </Nav>
