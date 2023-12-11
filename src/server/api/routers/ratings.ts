@@ -26,7 +26,7 @@ export const ratingsRouter = createTRPCRouter({
             authorId: input.userId,
           },
           take: 20,
-          orderBy: [{ value: "desc" }],
+          orderBy: [{ createdAt: "desc" }],
         })
       return ratings;
     }),
@@ -48,6 +48,28 @@ export const ratingsRouter = createTRPCRouter({
       const authorId = ctx.userId;
 
       const rating = await ctx.prisma.rating.create({
+        data: {
+          authorId,
+          albumId: input.albumId,
+          value: input.value,
+        },
+      });
+
+      return rating;
+    }),
+  update: privateProcedure
+    .input(
+      z.object({
+        id: z.string(),
+        albumId: z.string(),
+        value: z.number(),
+      })
+    )
+    .mutation(async ({ ctx, input }) => {
+      const authorId = ctx.userId;
+
+      const rating = await ctx.prisma.rating.update({
+        where: { id: input.id },
         data: {
           authorId,
           albumId: input.albumId,
