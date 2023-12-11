@@ -12,19 +12,10 @@ import StarIcon from '@mui/icons-material/Star';
 import Skeleton from '@mui/material/Skeleton';
 import SkeletonCarousel from "~/components/SkeletonCarousel";
 import { Nav } from "~/components/Nav";
+import { getAccessToken } from "~/utils/getAccessToken";
 
 export const getServerSideProps = (async () => {
-  const response = await fetch('https://accounts.spotify.com/api/token', {
-    method: 'POST',
-    body: new URLSearchParams({
-      'grant_type': 'client_credentials',
-    }),
-    headers: {
-      'Content-Type': 'application/x-www-form-urlencoded',
-      'Authorization': 'Basic ' + (Buffer.from(process.env.CLIENT_ID + ':' + process.env.CLIENT_SECRET).toString('base64')),
-    },
-  });
-  const { access_token } = await response.json();
+  const { access_token } = await getAccessToken();
   return { props: { access_token } }
 })
 
