@@ -4,6 +4,7 @@ import { ChangeEvent, useEffect, useState } from "react";
 import { api } from "~/utils/api";
 import StarIcon from '@mui/icons-material/Star';
 import { useQuery } from "@tanstack/react-query";
+import SkeletonCarousel from "./SkeletonCarousel";
 
 const fetchAlbum = async (albumId: string, access_token: string) => {
   const response = await fetch(`https://api.spotify.com/v1/albums/${albumId}`, {
@@ -50,7 +51,8 @@ export const FavoriteCard = ({ access_token, albumId, id }: { access_token: stri
   if (!album) return null
 
   return (
-    <Card className='flex flex-col items-center justify-center bg-slate-900 my-auto'>
+    isLoadingAlbum ? <SkeletonCarousel /> :
+    <Card className='flex flex-col items-center justify-center bg-slate-900 my-auto max-w-[640px]'>
       <Inset className='rounded-b-none'>
         <a href={album.external_urls.spotify} target='_blank'>
           <img className='object-cover' src={album?.images[0].url} />
