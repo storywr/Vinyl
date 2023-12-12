@@ -3,6 +3,7 @@ import { api } from "~/utils/api";
 import { FavoriteCard } from "~/components/FavoriteCard";
 import { Nav } from "~/components/Nav";
 import { getAccessToken } from "~/utils/getAccessToken";
+import SkeletonCarousel from "~/components/SkeletonCarousel";
 
 export const getServerSideProps = (async () => {
   const access_token = await getAccessToken();
@@ -15,7 +16,8 @@ interface FavoritesProps {
 
 const Favorites = ({ access_token }: FavoritesProps) => {
   const { user } = useUser();
-  const { data } = api.ratings.getRatingsByUserId.useQuery({
+  const { data, isLoading } = api.ratings.getRatingsByUserId.useQuery({
+    access_token,
     // @ts-ignore user exists
     userId: user?.id,
     enabled: !!user?.id,
@@ -24,8 +26,9 @@ const Favorites = ({ access_token }: FavoritesProps) => {
   return (
     <Nav>
       <div className="flex flex-row flex-wrap justify-center items-center w-full gap-12 md:gap-20 p-6">
-        {data?.map((favorite: any) => (
-          <FavoriteCard key={favorite.id} albumId={favorite.albumId} access_token={access_token} id={favorite.id}  />
+        {data?.map((favorite: any) => (isLoading
+          ? <SkeletonCarousel />
+          : <FavoriteCard key={favorite.id} favorite={favorite}  />
         ))}
       </div>
     </Nav>
