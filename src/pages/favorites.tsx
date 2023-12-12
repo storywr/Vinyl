@@ -3,7 +3,7 @@ import { api } from "~/utils/api";
 import { Favorite, FavoriteCard } from "~/components/FavoriteCard";
 import { Nav } from "~/components/Nav";
 import { getAccessToken } from "~/utils/getAccessToken";
-import SkeletonCarousel from "~/components/SkeletonCarousel";
+import { Skeleton } from "@mui/material";
 
 export const getServerSideProps = (async () => {
   const access_token = await getAccessToken();
@@ -24,11 +24,11 @@ const Favorites = ({ access_token }: FavoritesProps) => {
 
   return (
     <Nav>
-      <div className="flex flex-row flex-wrap justify-center items-center w-full gap-12 md:gap-20 p-6">
-        {data?.map((favorite: Favorite) => (isLoading
-          ? <SkeletonCarousel />
-          : <FavoriteCard key={favorite.id} favorite={favorite}  />
-        ))}
+      <div className="flex flex-row flex-wrap justify-center w-full gap-12 md:gap-20 p-6">
+        {isLoading
+          ? Array.from({ length: 4 }).map((u, i) => <div className='h-[726px] min-h-[726px]'><Skeleton variant='rectangular' key={i} sx={{ backgroundColor: '#0f172a' }} height='100%' width={640} /></div>)
+          : data?.map((favorite: Favorite) => (<FavoriteCard key={favorite.id} favorite={favorite} />))
+        }
       </div>
     </Nav>
   )

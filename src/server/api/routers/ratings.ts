@@ -2,13 +2,13 @@ import { z } from "zod";
 
 import { createTRPCRouter, publicProcedure, privateProcedure } from "~/server/api/trpc";
 
-const fetchAlbum = async (albumId: string, access_token: string) => {
-  const response = await fetch(`https://api.spotify.com/v1/albums/${albumId}`, {
+const fetchAlbums = async (albumIds: string[], access_token: string) => {
+  const response = await fetch(`https://api.spotify.com/v1/albums?ids=${albumIds.join(',')}`, {
     method: 'GET',
     headers: { 'Authorization': 'Bearer ' + access_token },
   });
   if (!response.ok) {
-    throw new Error('Failed to fetch album');
+    throw new Error('Failed to fetch albums');
   }
   return response.json();
 };
@@ -41,13 +41,9 @@ export const ratingsRouter = createTRPCRouter({
           orderBy: [{ createdAt: "desc" }],
         })
       
-        const fullRatings = await Promise.all(ratings.map(async (rating) => {
-          const album = await fetchAlbum(rating.albumId, input.access_token);
-          return {
-            ...rating,
-            album,
-          }
-        }));
+      const albumIds = ratings.map((rating) => rating.albumId);
+      const albums = await fetchAlbums(albumIds, input.access_token);
+      const fullRatings = ratings.map((rating) => ({ ...rating, album: albums.albums.find((album) => album.id === rating.albumId) }))
 
       return fullRatings;
     }),
