@@ -20,7 +20,6 @@ const Favorites = ({ access_token }: FavoritesProps) => {
     access_token,
     // @ts-ignore user exists
     userId: user?.id,
-    enabled: !!user?.id,
   });
 
   return (
