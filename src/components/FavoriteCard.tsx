@@ -4,13 +4,12 @@ import { ChangeEvent, useEffect, useState } from "react";
 import { api } from "~/utils/api";
 import StarIcon from '@mui/icons-material/Star';
 
-type Favorite = {
+export type Favorite = {
   id: string
   albumId: string
   value: number
-  userId: string
-  createdAt: string
-  updatedAt: string
+  createdAt: Date
+  updatedAt: Date
   album: {
     id: string
     name: string

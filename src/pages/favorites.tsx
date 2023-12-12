@@ -1,6 +1,6 @@
 import { useUser } from "@clerk/nextjs";
 import { api } from "~/utils/api";
-import { FavoriteCard } from "~/components/FavoriteCard";
+import { Favorite, FavoriteCard } from "~/components/FavoriteCard";
 import { Nav } from "~/components/Nav";
 import { getAccessToken } from "~/utils/getAccessToken";
 import SkeletonCarousel from "~/components/SkeletonCarousel";
@@ -25,7 +25,7 @@ const Favorites = ({ access_token }: FavoritesProps) => {
   return (
     <Nav>
       <div className="flex flex-row flex-wrap justify-center items-center w-full gap-12 md:gap-20 p-6">
-        {data?.map((favorite: any) => (isLoading
+        {data?.map((favorite: Favorite) => (isLoading
           ? <SkeletonCarousel />
           : <FavoriteCard key={favorite.id} favorite={favorite}  />
         ))}
