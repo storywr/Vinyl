@@ -16,7 +16,7 @@ import { getAccessToken } from "~/utils/getAccessToken";
 import { Rating as RatingType } from "@prisma/client";
 
 export const getStaticProps = (async () => {
-  const { access_token } = await getAccessToken();
+  const access_token = await getAccessToken();
   return { props: { access_token } }
 })
 

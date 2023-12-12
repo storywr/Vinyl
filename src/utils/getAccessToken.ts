@@ -1,4 +1,4 @@
-export const getAccessToken = async () => {
+export const getAccessToken = async (): Promise<string> => {
   const response = await fetch('https://accounts.spotify.com/api/token', {
     method: 'POST',
     body: new URLSearchParams({
@@ -10,5 +10,5 @@ export const getAccessToken = async () => {
     },
   });
   const { access_token } = await response.json();
-  return { access_token }
+  return access_token
 }

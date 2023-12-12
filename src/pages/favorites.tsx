@@ -5,7 +5,7 @@ import { Nav } from "~/components/Nav";
 import { getAccessToken } from "~/utils/getAccessToken";
 
 export const getStaticProps = (async () => {
-  const { access_token } = await getAccessToken();
+  const access_token = await getAccessToken();
   return { props: { access_token } }
 })
 
