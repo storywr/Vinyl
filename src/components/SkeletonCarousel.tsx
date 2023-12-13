@@ -25,7 +25,7 @@ const SkeletonCarousel = () => {
   return (
     <Carousel responsive={responsive}>
       {Array.from({ length: 4 }).map((u, i) => (
-        <Skeleton className='bg-slate-900 max-w-[640px] md:w-[440px] mx-auto h-[800px] min-h-[800px]' key={i} sx={{ backgroundColor: '#0f172a' }} />
+        <Skeleton className='bg-slate-800 min-h-[500px] md:w-[440px] mx-auto' key={i} sx={{ backgroundColor: '#0f172a' }} />
       ))}
     </Carousel>
   )
