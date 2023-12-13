@@ -79,7 +79,7 @@ export default function Home({ access_token }: HomeProps) {
   const SearchBar = (
     <TextField.Root variant='soft' radius='full' color='gray' className='w-full md:w-[480px] flex-[0-0-100%] order-2' size='3'>
       <TextField.Slot><FaMagnifyingGlass size='16' /></TextField.Slot>
-      <TextField.Input placeholder="Search vinyl..." onChange={handleChange} value={search} />
+      <TextField.Input placeholder="Search artist or album..." onChange={handleChange} value={search} />
       {!!search && <TextField.Slot className='cursor-pointer' onClick={handleClear}><MdClear size='20' /></TextField.Slot>}
     </TextField.Root> 
   )
