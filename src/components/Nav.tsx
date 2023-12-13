@@ -1,6 +1,5 @@
 import Head from "next/head";
 import { UserButton, useUser } from "@clerk/nextjs";
-import { Box } from "@radix-ui/themes";
 import { ReactElement } from "react";
 import 'react-multi-carousel/lib/styles.css';
 import { FaRecordVinyl } from "react-icons/fa6";
@@ -21,14 +20,14 @@ export const Nav = ({ children, searchBar }: NavProps) => (
       <link rel="icon" href="/favicon.ico" />
     </Head>
     <main className="flex min-h-screen items-center flex-col bg-slate-950">
-    <Box className='flex flex-row justify-between p-6 w-full items-end flex-wrap gap-8 bg-slate-900 border-b border-slate-800'>
+    <div className='flex flex-row justify-between p-6 w-full items-end flex-wrap gap-8 bg-slate-900 border-b border-slate-800'>
       <Link href='/'><div className='text-4xl flex flex-row gap-2'>Vinyl <FaRecordVinyl /></div></Link>
       {searchBar && searchBar}
-        <Box className='order-1 flex flex-row items-center md:order-3 gap-4'>
+        <div className='order-1 flex flex-row items-center md:order-3 gap-4'>
           <DropdownMenu.Root>
             <DropdownMenu.Trigger asChild>
               <button className="IconButton" aria-label="Customise options">
-                <Box className='cursor-pointer hover:bg-slate-800 p-2 rounded-md'><GiHamburgerMenu size='24' /></Box>
+                <div className='cursor-pointer hover:bg-slate-800 p-2 rounded-md'><GiHamburgerMenu size='24' /></div>
               </button>
             </DropdownMenu.Trigger>
             <DropdownMenu.Portal>
@@ -43,8 +42,8 @@ export const Nav = ({ children, searchBar }: NavProps) => (
             </DropdownMenu.Portal>
           </DropdownMenu.Root>
           <UserButton afterSignOutUrl='/' />
-        </Box>
-      </Box>
+        </div>
+      </div>
       {children}
     </main>
   </>
