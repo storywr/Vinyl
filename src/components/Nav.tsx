@@ -21,9 +21,9 @@ export const Nav = ({ children, searchBar }: NavProps) => (
       <link rel="icon" href="/favicon.ico" />
     </Head>
     <main className="flex min-h-screen items-center flex-col bg-slate-950">
-      <Box className='flex flex-row justify-between p-6 w-full items-end flex-wrap gap-8'>
-        <Link href='/'><div className='text-4xl flex flex-row gap-2'>Vinyl <FaRecordVinyl /></div></Link>
-        {searchBar && searchBar}
+    <Box className='flex flex-row justify-between p-6 w-full items-end flex-wrap gap-8 bg-slate-900 border-b border-slate-800'>
+      <Link href='/'><div className='text-4xl flex flex-row gap-2'>Vinyl <FaRecordVinyl /></div></Link>
+      {searchBar && searchBar}
         <Box className='order-1 flex flex-row items-center md:order-3 gap-4'>
           <DropdownMenu.Root>
             <DropdownMenu.Trigger asChild>

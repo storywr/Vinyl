@@ -24,7 +24,7 @@ const Favorites = ({ access_token }: FavoritesProps) => {
 
   return (
     <Nav>
-      <div className="flex flex-row flex-wrap justify-center w-full gap-12 md:gap-20 p-6">
+      <div className="flex flex-row flex-wrap justify-center w-full gap-8 md:gap-20 p-6 md:p-0 md:mt-12">
         {isLoading
           ? Array.from({ length: 4 }).map((u, i) => <div className='w-full md:w-[640px] md:h-[640px] h-[400px]'><Skeleton variant='rectangular' key={i} sx={{ backgroundColor: '#0f172a' }} height='100%' /></div>)
           : data?.map((favorite: Favorite) => (<FavoriteCard key={favorite.id} favorite={favorite} />))
