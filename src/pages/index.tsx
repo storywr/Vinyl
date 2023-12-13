@@ -86,7 +86,7 @@ export default function Home({ access_token }: HomeProps) {
   
   return (
     <Nav searchBar={SearchBar}>
-      <div className='justify-center items-center h-full w-full p-6 md:p-0 mt-2 md:mt-12'>
+      <div className='justify-center items-center h-full w-full p-6 md:p-0 mt-0 md:mt-12'>
         {(isLoadingAlbums && search) ? <SkeletonCarousel /> :
           <Carousel responsive={responsive}>
             {albumData?.albums?.items?.map((album: any) => (

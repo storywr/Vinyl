@@ -1,5 +1,4 @@
 import Skeleton from '@mui/material/Skeleton';
-import { Box } from '@radix-ui/themes';
 import Carousel from "react-multi-carousel"
 
 const responsive = {
@@ -25,7 +24,7 @@ const SkeletonCarousel = () => {
   return (
     <Carousel responsive={responsive}>
       {Array.from({ length: 4 }).map((u, i) => (
-        <Skeleton className='bg-slate-800 min-h-[500px] md:w-[440px] mx-auto' key={i} sx={{ backgroundColor: '#0f172a' }} />
+        <Skeleton className='min-h-[500px] md:w-[440px] mx-auto' key={i} sx={{ backgroundColor: '#0f172a' }} />
       ))}
     </Carousel>
   )
