@@ -31,7 +31,7 @@ export const Nav = ({ children, searchBar }: NavProps) => (
               </button>
             </DropdownMenu.Trigger>
             <DropdownMenu.Portal>
-              <DropdownMenu.Content className="cursor-pointer mr-4 bg-slate-100 rounded-lg text-slate-950" sideOffset={5}>
+              <DropdownMenu.Content className="cursor-pointer mr-4 bg-slate-100 rounded-lg text-slate-950" style={{ fontFamily: 'sans-serif' }} sideOffset={5}>
                 <DropdownMenu.Item className='hover:bg-slate-300 p-2 rounded-t-lg'>
                   <Link href="/favorites"><div className='text-lg'>Your Ratings</div></Link>
                 </DropdownMenu.Item>
