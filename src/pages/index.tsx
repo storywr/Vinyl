@@ -156,40 +156,40 @@ const AlbumCard = ({ album }: { album: any }) => {
   }
 
   return (
-      <Dialog.Root>
-        <Dialog.Content className="bg-slate-900" style={{ maxWidth: '600px', maxHeight: '700px' }}>
+    <Dialog.Root>
+      <Dialog.Content className="bg-slate-900" style={{ maxWidth: '600px', maxHeight: '700px' }}>
         <Dialog.Title size='8'>
           <div className='flex flex-col gap-0'>
             <div className='text-3xl font-extrabold'>{album.name}</div>
             <div className='text-xl'>{album.artists[0].name}</div>
           </div>
         </Dialog.Title>
-          <div className='flex flex-col gap-4 w-full my-6'>
-            <label hidden className="Label" htmlFor="comment">
-              Name
-            </label>
-            <div className='flex flex-row gap-3 justify-center items-center'>
-              <Avatar size='5' radius='full' src={user?.imageUrl} fallback='' />
-              <TextArea className='w-full h-[80px]' onChange={(e) => setComment(e.target.value)} value={comment} placeholder="comment..." name='comment' />
-            </div>
-            <Button className='ml-auto w-20 cursor-pointer' size='4' onClick={handleComment} variant='soft'>Post</Button>
+        <div className='flex flex-col gap-4 w-full my-6'>
+          <label hidden className="Label" htmlFor="comment">
+            Name
+          </label>
+          <div className='flex flex-row gap-3 justify-center items-center'>
+            <Avatar size='5' radius='full' src={user?.imageUrl} fallback='' />
+            <TextArea className='w-full h-[80px]' onChange={(e) => setComment(e.target.value)} value={comment} placeholder="comment..." name='comment' />
           </div>
+          <Button className='ml-auto w-20 cursor-pointer' size='4' onClick={handleComment} variant='soft'>Post</Button>
+        </div>
 
-          <div className="flex flex-col my-4">
-            {isLoadingComments ? <Skeleton sx={{ backgroundColor: '#2c387e' }} width={175} height={50} /> :
-            commentData?.map((comment) => (
-              <div key={comment.comment.id} className='border-solid border border-slate-500 p-4 text-sm flex flex-row gap-4 items-center border-b-0 last:border'>
-                <Avatar size='2' radius='full' src={comment.author.profileImageUrl} fallback='' />
-                <div className='flex flex-col gap-1 justify-start'>
-                  <div className='text-md font-bold underline'>{comment.author.username}</div>
-                  {comment.comment.content}
-                </div>
+        <div className="flex flex-col my-4">
+          {isLoadingComments ? <Skeleton sx={{ backgroundColor: '#2c387e' }} width={175} height={50} /> :
+          commentData?.map((comment) => (
+            <div key={comment.comment.id} className='border-solid border border-slate-500 p-4 text-sm flex flex-row gap-4 items-center border-b-0 last:border'>
+              <Avatar size='2' radius='full' src={comment.author.profileImageUrl} fallback='' />
+              <div className='flex flex-col gap-1 justify-start'>
+                <div className='text-md font-bold underline'>{comment.author.username}</div>
+                {comment.comment.content}
               </div>
-              ))
-            }
-          </div>
-        </Dialog.Content>
-      <Card className='flex flex-col bg-slate-900 max-w-[640px] w-auto md:w-[440px] hover:w-[460px] mx-auto'>
+            </div>
+            ))
+          }
+        </div>
+      </Dialog.Content>
+      <Card className='flex flex-col bg-slate-900 max-w-[640px] w-auto md:w-[440px] md:hover:w-[460px] mx-auto'>
         <Inset className='rounded-b-none'>
           <a href={album.external_urls.spotify} target='_blank'>
             <img className='object-cover' src={album?.images[0].url} />
