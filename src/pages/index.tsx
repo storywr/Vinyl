@@ -270,7 +270,6 @@ const AlbumCard = ({ album }: { album: any }) => {
               {album.artists[0].name}
             </h2>
           </div>
-          <div>test</div>
           <div className="flex flex-col justify-end gap-4">
             {isLoadingRating ? (
               <Skeleton
