@@ -3,7 +3,11 @@ import { Comment } from "@prisma/client";
 import { z } from "zod";
 import { filterUserForClient } from "~/server/helpers/filterUserForClient";
 
-import { createTRPCRouter, privateProcedure, publicProcedure } from "~/server/api/trpc";
+import {
+  createTRPCRouter,
+  privateProcedure,
+  publicProcedure,
+} from "~/server/api/trpc";
 import { TRPCError } from "@trpc/server";
 
 const addUserDataToComments = async (comments: Comment[]) => {
@@ -40,8 +44,9 @@ export const commentsRouter = createTRPCRouter({
   getCommentsByAlbumId: publicProcedure
     .input(
       z.object({
-        albumId: z.string()
-      }))
+        albumId: z.string(),
+      }),
+    )
     .query(async ({ ctx, input }) => {
       const comments = await ctx.prisma.comment.findMany({
         where: {
@@ -58,7 +63,7 @@ export const commentsRouter = createTRPCRouter({
       z.object({
         albumId: z.string(),
         content: z.string(),
-      })
+      }),
     )
     .mutation(async ({ ctx, input }) => {
       const authorId = ctx.userId;
@@ -73,5 +78,4 @@ export const commentsRouter = createTRPCRouter({
 
       return comment;
     }),
-
 });
